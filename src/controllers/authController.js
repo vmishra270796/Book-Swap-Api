@@ -20,7 +20,6 @@ const cookieOpts = {
   secure: config.cookieSecure,
   sameSite: "lax",
   domain: config.cookieDomain,
-  maxAge: 7 * 24 * 60 * 60 * 1000,
   path: "/",
 };
 
