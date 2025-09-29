@@ -19,7 +19,8 @@ const cookieOpts = {
   httpOnly: true,
   secure: config.cookieSecure,
   sameSite: "lax",
-  domain: config.cookieDomain,
+  // domain: config.cookieDomain,
+  maxAge: 7 * 24 * 60 * 60 * 1000,
   path: "/",
 };
 
@@ -61,6 +62,9 @@ export const login = async (req, res) => {
   const token = jwt.sign({ uid: user._id }, config.jwtSecret, {
     expiresIn: "7d",
   });
+  if (config.nodeEnv === "production" && config.cookieDomain) {
+    cookieOptions.domain = config.cookieDomain;
+  }
   res.cookie("token", token, cookieOpts);
   res.json({ user: { id: user._id, name: user.name, email: user.email } });
 };
