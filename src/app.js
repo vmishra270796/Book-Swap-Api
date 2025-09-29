@@ -18,6 +18,9 @@ export const createApp = () => {
   app.use(express.json());
 
   app.use('/uploads', express.static('uploads'));
+  app.get("/api/health", (req, res) => {
+    res.json({ status: "ok", time: new Date() });
+  });
 
   app.use('/api/auth', authRoutes);
   app.use('/api/books', bookRoutes);
