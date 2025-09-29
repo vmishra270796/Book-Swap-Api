@@ -18,7 +18,7 @@ const loginSchema = z.object({
 const cookieOpts = {
   httpOnly: true,
   secure: config.cookieSecure,
-  sameSite: "lax",
+  sameSite: "none",
   // domain: config.cookieDomain,
   maxAge: 7 * 24 * 60 * 60 * 1000,
   path: "/",
@@ -62,9 +62,9 @@ export const login = async (req, res) => {
   const token = jwt.sign({ uid: user._id }, config.jwtSecret, {
     expiresIn: "7d",
   });
-  if (config.nodeEnv === "production" && config.cookieDomain) {
-    cookieOpts.domain = config.cookieDomain;
-  }
+  // if (config.nodeEnv === "production" && config.cookieDomain) {
+  //   cookieOpts.domain = config.cookieDomain;
+  // }
   res.cookie("token", token, cookieOpts);
   res.json({ user: { id: user._id, name: user.name, email: user.email } });
 };
