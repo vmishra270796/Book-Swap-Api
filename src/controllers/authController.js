@@ -63,7 +63,7 @@ export const login = async (req, res) => {
     expiresIn: "7d",
   });
   if (config.nodeEnv === "production" && config.cookieDomain) {
-    cookieOptions.domain = config.cookieDomain;
+    cookieOpts.domain = config.cookieDomain;
   }
   res.cookie("token", token, cookieOpts);
   res.json({ user: { id: user._id, name: user.name, email: user.email } });
